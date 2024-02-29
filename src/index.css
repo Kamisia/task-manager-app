@@ -123,4 +123,5 @@ body {
   background-color: var(--success-color);
   color: var(--white-color);
   border-radius: 50%;
+  padding-top: 0.2rem;
 }
