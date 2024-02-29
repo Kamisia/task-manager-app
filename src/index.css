@@ -1,0 +1,53 @@
+:root {
+  /*colors*/
+  --black-color: #060200;
+  --light-color: #cbbbd2;
+  --white-color: #fdfcfd;
+  --light-gray-color: #9e97a8;
+  --grey-color: #918c9a;
+  --dark-color: #251b4d;
+  --main-color: #6c4e8e;
+  --main-color-rgba: rgba(108, 78, 142, 0.5);
+  --detail-color: #be8895;
+  --detail-color-rgba: rgba(190, 136, 149, 0.5);
+
+  --transition: 0.3s ease-in-out all;
+
+  /*shadow*/
+
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  scroll-padding-top: 240px;
+}
+html {
+  font-size: 100%;
+}
+body {
+  background-color: #f5df2e;
+  background-image: linear-gradient(315deg, #f5df2e 0%, #f07654 74%);
+  background-size: cover;
+  background-repeat: no-repeat;
+  font-family: "Poppins";
+}
+.container {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  width: 100%;
+}
+.tasks-container {
+  border-radius: 8px;
+  max-width: 800px;
+  min-width: 400px;
+  background-color: #fff;
+  padding: 1rem;
+  margin-left: 10%;
+  margin-right: 10%;
+  box-shadow: var(--shadow);
+}
