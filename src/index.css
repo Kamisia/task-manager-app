@@ -1,15 +1,15 @@
 :root {
   /*colors*/
-  --black-color: #060200;
-  --light-color: #cbbbd2;
-  --white-color: #fdfcfd;
-  --light-gray-color: #9e97a8;
-  --grey-color: #918c9a;
-  --dark-color: #251b4d;
-  --main-color: #6c4e8e;
-  --main-color-rgba: rgba(108, 78, 142, 0.5);
-  --detail-color: #be8895;
-  --detail-color-rgba: rgba(190, 136, 149, 0.5);
+  --black-color: #192328;
+  --light-color: #ffd7a7;
+  --white-color: #fff3f0;
+
+  --grey-color: #999fa2;
+  --dark-color: #ae3715;
+  --main-color: #f07654;
+  --success-color: #3baa6f;
+  --success-dark-color: #0f7b41;
+  --detail-color: #124e6f;
 
   --transition: 0.3s ease-in-out all;
 
@@ -50,4 +50,77 @@ body {
   margin-left: 10%;
   margin-right: 10%;
   box-shadow: var(--shadow);
+}
+
+.add-task {
+  text-align: center;
+  padding: 1rem;
+}
+.add-task h2 {
+  font-weight: 300;
+  font-size: 2rem;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  color: var(--main-color);
+}
+.add-task input {
+  padding: 0.5rem;
+  color: var(--black-color);
+  border: var(--main-color) 1px solid;
+  border-radius: 3px 0px 0px 3px;
+  width: 80%;
+}
+.add-task button {
+  padding: 0.5rem;
+  text-transform: uppercase;
+  border: 1px solid var(--main-color);
+  background-color: var(--main-color);
+  color: var(--light-color);
+  transition: var(--transition);
+  border-radius: 0px 3px 3px 0px;
+}
+.add-task button:hover {
+  background-color: transparent;
+  color: var(--main-color);
+}
+
+/*Task list*/
+.tasks-list {
+  padding: 1rem;
+  color: var(--black-color);
+}
+.tasks-list h2 {
+  font-weight: 200;
+  font-size: 1.2rem;
+}
+.tasks-list ul li {
+  list-style: none;
+  font-weight: 200;
+  font-size: 1rem;
+  padding: 1rem;
+  margin-right: 5px;
+}
+.tasks-list ul li {
+  display: inline-flex;
+  margin: auto;
+  width: 100%;
+}
+
+.tasks-list ul li .title {
+  width: 80%;
+}
+
+.tasks-list button {
+  background-color: transparent;
+  border: none;
+  margin-left: 10%;
+  width: 20px;
+  height: 20px;
+  color: var(--success-color);
+  transition: var(--transition);
+}
+.tasks-list button:hover {
+  background-color: var(--success-color);
+  color: var(--white-color);
+  border-radius: 50%;
 }

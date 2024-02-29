@@ -1,5 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { deleteTask } from "../store/taskSlice";
+import { IoCheckmark } from "react-icons/io5";
 
 const TaskList = () => {
   const tasks = useSelector((state) => state.tasks.tasks);
@@ -15,8 +16,10 @@ const TaskList = () => {
       <ul>
         {tasks.map((task) => (
           <li key={task.id}>
-            {task.title}
-            <button onClick={() => handleDelete(task.id)}>Delete</button>
+            <div className="title">{task.title}</div>
+            <button onClick={() => handleDelete(task.id)}>
+              <IoCheckmark />
+            </button>
           </li>
         ))}
       </ul>

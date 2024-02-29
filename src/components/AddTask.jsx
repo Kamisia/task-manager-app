@@ -12,7 +12,7 @@ const AddTask = () => {
   };
 
   return (
-    <div>
+    <div className="add-task">
       <h2>Start now, succeed!</h2>
       <input
         type="text"
