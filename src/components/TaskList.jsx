@@ -1,7 +1,8 @@
 import { useSelector, useDispatch } from "react-redux";
 import { deleteTask, editTask } from "../store/taskSlice";
-import { IoCheckmark } from "react-icons/io5";
+import { IoCheckmark, IoSaveOutline } from "react-icons/io5";
 import { CiEdit } from "react-icons/ci";
+import { MdOutlineCancel } from "react-icons/md";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useState } from "react";
@@ -16,6 +17,10 @@ const TaskList = () => {
     if (taskToEdit) {
       setNewTaskTitle(taskToEdit.title);
     }
+  };
+  const handleCancel = () => {
+    setEditingTaskId(null);
+    setNewTaskTitle("");
   };
   const handleSaveEdit = () => {
     dispatch(editTask({ id: editingTaskId, newTitle: newTaskTitle }));
@@ -60,15 +65,24 @@ const TaskList = () => {
               <div className="title">{task.title}</div>
             )}
             {editingTaskId === task.id ? (
-              <button onClick={handleSaveEdit}>save</button>
+              <>
+                <button id="save" onClick={handleSaveEdit}>
+                  <IoSaveOutline />
+                </button>
+                <button id="cancel" onClick={handleCancel}>
+                  <MdOutlineCancel />
+                </button>
+              </>
             ) : (
-              <button onClick={() => handleEdit(task.id)}>
-                <CiEdit />
-              </button>
+              <>
+                <button id="edit" onClick={() => handleEdit(task.id)}>
+                  <CiEdit />
+                </button>
+                <button id="check" onClick={() => handleDelete(task.id)}>
+                  <IoCheckmark />
+                </button>
+              </>
             )}
-            <button onClick={() => handleDelete(task.id)}>
-              <IoCheckmark />
-            </button>
           </li>
         ))}
       </ul>
