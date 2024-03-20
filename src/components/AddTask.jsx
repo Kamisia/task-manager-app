@@ -1,14 +1,38 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addTask } from "../store/taskSlice";
-
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const AddTask = () => {
   const [taskTitle, setTaskTitle] = useState("");
   const dispatch = useDispatch();
 
   const handleAddTask = () => {
-    dispatch(addTask({ id: Date.now(), title: taskTitle }));
-    setTaskTitle("");
+    if (taskTitle !== "") {
+      dispatch(addTask({ id: Date.now(), title: taskTitle }));
+      toast.info("The task has been added", {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+      setTaskTitle("");
+    } else {
+      toast.error("Complete the task...", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    }
   };
 
   return (
