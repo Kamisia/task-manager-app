@@ -5,12 +5,19 @@ import { CiEdit } from "react-icons/ci";
 import { MdOutlineCancel } from "react-icons/md";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 const TaskList = () => {
   const tasks = useSelector((state) => state.tasks.tasks);
   const dispatch = useDispatch();
   const [editingTaskId, setEditingTaskId] = useState(null);
   const [newTaskTitle, setNewTaskTitle] = useState("");
+  useEffect(() => {
+    const tasksFromLocalStorage = JSON.parse(localStorage.getItem("tasks"));
+    if (tasksFromLocalStorage) {
+      dispatch({ type: "tasks/setTasks", payload: tasksFromLocalStorage });
+    }
+  }, [dispatch]);
+
   const handleEdit = (taskId) => {
     setEditingTaskId(taskId);
     const taskToEdit = tasks.find((task) => task.id === taskId);
