@@ -61,7 +61,7 @@ The application will be available at http://localhost:3000 in your browser.
 
 3. Deleting a Task:
 
-- Each task on the list is displayed with a "check" button. Click this button to remove the task from the list.
+- Each task on the list is displayed with a Checkmark button. Click this button to remove the task from the list.
 
 ## Technologies
 
