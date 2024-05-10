@@ -36,14 +36,14 @@ To run the application locally on your computer, follow these steps:
 
 4. Run the application:
    ```
-   npm start
+   npm run dev
    ```
    or
    ```
    yarn start
    ```
 
-The application will be available at http://localhost:3000 in your browser.
+The application will be available at http://localhost:5000 in your browser.
 
 ## Instructions for Use
 
