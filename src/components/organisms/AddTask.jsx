@@ -1,8 +1,10 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addTask } from "../store/taskSlice";
+import { addTask } from "../../store/taskSlice";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import TaskForm from "../molecules/TaskForm";
+
 const AddTask = () => {
   const [taskTitle, setTaskTitle] = useState("");
   const dispatch = useDispatch();
@@ -38,12 +40,11 @@ const AddTask = () => {
   return (
     <div className="add-task">
       <h2>Start now, succeed!</h2>
-      <input
-        type="text"
-        value={taskTitle}
-        onChange={(e) => setTaskTitle(e.target.value)}
+      <TaskForm
+        taskTitle={taskTitle}
+        onTaskTitleChange={(e) => setTaskTitle(e.target.value)}
+        onAddTask={handleAddTask}
       />
-      <button onClick={handleAddTask}>Add</button>
     </div>
   );
 };
