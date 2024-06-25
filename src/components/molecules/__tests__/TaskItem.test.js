@@ -1,9 +1,6 @@
 import React from "react";
 import { render, fireEvent } from "@testing-library/react";
 import TaskItem from "../TaskItem";
-import { IoCheckmark, IoSaveOutline } from "react-icons/io5";
-import { CiEdit } from "react-icons/ci";
-import { MdOutlineCancel } from "react-icons/md";
 
 describe("TaskItem component", () => {
   const task = { id: 1, title: "Sample Task" };
@@ -77,5 +74,68 @@ describe("TaskItem component", () => {
     fireEvent.click(editButton);
 
     expect(mockOnEdit).toHaveBeenCalledWith(1);
+  });
+
+  it("calls onCancel function and reverts to display mode when Cancel button is clicked", () => {
+    const mockOnCancel = jest.fn();
+    const { getByTestId } = render(
+      <TaskItem
+        task={task}
+        editingTaskId={1}
+        newTaskTitle={newTaskTitle}
+        onNewTaskTitleChange={() => {}}
+        onEdit={() => {}}
+        onCancel={() => mockOnCancel(task.id)}
+        onSaveEdit={() => {}}
+        onDelete={() => {}}
+      />
+    );
+
+    const cancelButton = getByTestId("cancel-button");
+    fireEvent.click(cancelButton);
+
+    expect(mockOnCancel).toHaveBeenCalledWith(1);
+  });
+
+  it("calls onDelete function when Delete button is clicked", () => {
+    const mockOnDelete = jest.fn();
+    const { getByTestId } = render(
+      <TaskItem
+        task={task}
+        editingTaskId={null}
+        newTaskTitle={newTaskTitle}
+        onNewTaskTitleChange={() => {}}
+        onEdit={() => {}}
+        onCancel={() => {}}
+        onSaveEdit={() => {}}
+        onDelete={mockOnDelete}
+      />
+    );
+
+    const deleteButton = getByTestId("check-button");
+    fireEvent.click(deleteButton);
+
+    expect(mockOnDelete).toHaveBeenCalledWith(1);
+  });
+
+  it("calls onSaveEdit function with correct payload when Save button is clicked", () => {
+    const mockOnSaveEdit = jest.fn();
+    const { getByTestId } = render(
+      <TaskItem
+        task={task}
+        editingTaskId={1}
+        newTaskTitle={newTaskTitle}
+        onNewTaskTitleChange={() => {}}
+        onEdit={() => {}}
+        onCancel={() => {}}
+        onSaveEdit={() => mockOnSaveEdit(task.id, newTaskTitle)}
+        onDelete={() => {}}
+      />
+    );
+
+    const saveButton = getByTestId("save-button");
+    fireEvent.click(saveButton);
+
+    expect(mockOnSaveEdit).toHaveBeenCalledWith(task.id, newTaskTitle);
   });
 });

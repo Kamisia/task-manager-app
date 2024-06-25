@@ -6,10 +6,6 @@ import AddTask from "../../organisms/AddTask";
 import { addTask } from "../../../store/taskSlice";
 import { toast } from "react-toastify";
 
-jest.mock("../../../store/taskSlice", () => ({
-  addTask: jest.fn(),
-}));
-
 jest.mock("react-toastify", () => ({
   toast: {
     info: jest.fn(),
@@ -23,10 +19,28 @@ describe("AddTask component", () => {
   let store;
 
   beforeEach(() => {
-    store = mockStore([]);
+    store = mockStore({});
     store.dispatch = jest.fn();
   });
 
+  it("clears the input field after adding a task", async () => {
+    const { getByTestId } = render(
+      <Provider store={store}>
+        <AddTask />
+      </Provider>
+    );
+
+    const input = getByTestId("task-input");
+    const button = getByTestId("add-task-button");
+
+    fireEvent.change(input, { target: { value: "New Task" } });
+
+    fireEvent.click(button);
+
+    await waitFor(() => {
+      expect(input.value).toBe("");
+    });
+  });
   it("renders AddTask component", () => {
     const { getByText, getByTestId } = render(
       <Provider store={store}>
@@ -39,7 +53,7 @@ describe("AddTask component", () => {
   });
 
   it("dispatches addTask action with correct payload when taskTitle is not empty", async () => {
-    const { getByTestId, getByText } = render(
+    const { getByTestId } = render(
       <Provider store={store}>
         <AddTask />
       </Provider>

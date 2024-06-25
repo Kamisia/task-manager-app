@@ -10,7 +10,7 @@ const AddTask = () => {
   const dispatch = useDispatch();
 
   const handleAddTask = () => {
-    if (taskTitle !== "") {
+    if (taskTitle.trim() !== "") {
       dispatch(addTask({ id: Date.now(), title: taskTitle }));
       toast.info("The task has been added", {
         position: "top-center",
@@ -37,12 +37,16 @@ const AddTask = () => {
     }
   };
 
+  const handleTaskTitleChange = (value) => {
+    setTaskTitle(value);
+  };
+
   return (
     <div className="add-task">
       <h2>Start now, succeed!</h2>
       <TaskForm
         taskTitle={taskTitle}
-        onTaskTitleChange={(e) => setTaskTitle(e.target.value)}
+        onTaskTitleChange={handleTaskTitleChange}
         onAddTask={handleAddTask}
       />
     </div>
