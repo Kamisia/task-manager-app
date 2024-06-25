@@ -18,18 +18,28 @@ const TaskItem = ({
   return (
     <li key={task.id}>
       {editingTaskId === task.id ? (
-        <Input value={newTaskTitle} onChange={onNewTaskTitleChange} />
+        <Input
+          value={newTaskTitle}
+          onChange={onNewTaskTitleChange}
+          dataTestId="task-input"
+        />
       ) : (
         <div className="title">{task.title}</div>
       )}
       {editingTaskId === task.id ? (
         <>
-          <Button id="save" onClick={onSaveEdit} icon={IoSaveOutline}></Button>
+          <Button
+            id="save"
+            onClick={onSaveEdit}
+            icon={IoSaveOutline}
+            dataTestId="save-button"
+          />
           <Button
             id="cancel"
             onClick={onCancel}
             icon={MdOutlineCancel}
-          ></Button>
+            dataTestId="cancel-button"
+          />
         </>
       ) : (
         <>
@@ -37,12 +47,14 @@ const TaskItem = ({
             id="edit"
             onClick={() => onEdit(task.id)}
             icon={CiEdit}
-          ></Button>
+            dataTestId="edit-button"
+          />
           <Button
             id="check"
             onClick={() => onDelete(task.id)}
             icon={IoCheckmark}
-          ></Button>
+            dataTestId="check-button"
+          />
         </>
       )}
     </li>
