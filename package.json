@@ -21,7 +21,8 @@
     "react-icon": "^1.0.0",
     "react-redux": "^9.1.0",
     "react-toastify": "^10.0.5",
-    "redux": "^5.0.1"
+    "redux": "^5.0.1",
+    "task-manager-app": "file:"
   },
   "devDependencies": {
     "@babel/core": "^7.24.7",
