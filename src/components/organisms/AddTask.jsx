@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addTask } from "../../store/taskSlice";
+import { createTask } from "../../store/taskSlice";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import TaskForm from "../molecules/TaskForm";
@@ -10,8 +10,8 @@ const AddTask = () => {
   const dispatch = useDispatch();
 
   const handleAddTask = () => {
-    if (taskTitle.trim() !== "") {
-      dispatch(addTask({ id: Date.now(), title: taskTitle }));
+    if (taskTitle.trim()) {
+      dispatch(createTask({ title: taskTitle, completed: false }));
       toast.info("The task has been added", {
         position: "top-center",
         autoClose: 2000,
@@ -36,7 +36,6 @@ const AddTask = () => {
       });
     }
   };
-
   const handleTaskTitleChange = (value) => {
     setTaskTitle(value);
   };

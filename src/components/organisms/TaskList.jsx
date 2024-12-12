@@ -1,45 +1,23 @@
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { deleteTask, editTask } from "../../store/taskSlice";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchTasks, removeTask, editTask } from "../../store/taskSlice";
+import TaskItem from "../molecules/TaskItem";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import TaskItem from "../molecules/TaskItem";
-
 const TaskList = () => {
-  const tasks = useSelector((state) => state.tasks.tasks);
   const dispatch = useDispatch();
+  const { items: tasks, loading, error } = useSelector((state) => state.tasks);
+
   const [editingTaskId, setEditingTaskId] = useState(null);
   const [newTaskTitle, setNewTaskTitle] = useState("");
 
   useEffect(() => {
-    const tasksFromLocalStorage = JSON.parse(localStorage.getItem("tasks"));
-    if (tasksFromLocalStorage) {
-      dispatch({ type: "tasks/setTasks", payload: tasksFromLocalStorage });
-    }
+    dispatch(fetchTasks());
   }, [dispatch]);
 
-  const handleEdit = (taskId) => {
-    setEditingTaskId(taskId);
-    const taskToEdit = tasks.find((task) => task.id === taskId);
-    if (taskToEdit) {
-      setNewTaskTitle(taskToEdit.title);
-    }
-  };
-
-  const handleCancel = () => {
-    setEditingTaskId(null);
-    setNewTaskTitle("");
-  };
-
-  const handleSaveEdit = () => {
-    dispatch(editTask({ id: editingTaskId, newTitle: newTaskTitle }));
-    setEditingTaskId(null);
-    toast.info("Task updated successfully!");
-  };
-
-  const handleDelete = (taskId) => {
-    toast.success("Good job, keep it up!", {
+  const handleDelete = (id) => {
+    toast.success("Task deleted successfully!", {
       position: "top-center",
       autoClose: 2000,
       hideProgressBar: false,
@@ -49,9 +27,28 @@ const TaskList = () => {
       progress: undefined,
       theme: "colored",
     });
-    dispatch(deleteTask(taskId));
+    dispatch(removeTask(id));
   };
 
+  const handleEdit = (id, currentTitle) => {
+    setEditingTaskId(id);
+    setNewTaskTitle(currentTitle);
+  };
+
+  const handleSaveEdit = (id) => {
+    const updatedTask = { title: newTaskTitle, completed: false };
+    dispatch(editTask({ id, updatedTask }));
+    setEditingTaskId(null);
+    setNewTaskTitle("");
+  };
+
+  const handleCancel = () => {
+    setEditingTaskId(null);
+    setNewTaskTitle("");
+  };
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error}</p>;
   if (tasks.length === 0) {
     return (
       <div className="tasks-list">
@@ -60,10 +57,9 @@ const TaskList = () => {
       </div>
     );
   }
-
   return (
     <div className="tasks-list">
-      <h2>Task List</h2>
+      <h2>Tasks List</h2>
       <ul>
         {tasks.map((task) => (
           <TaskItem
@@ -74,7 +70,7 @@ const TaskList = () => {
             onNewTaskTitleChange={(e) => setNewTaskTitle(e.target.value)}
             onEdit={handleEdit}
             onCancel={handleCancel}
-            onSaveEdit={handleSaveEdit}
+            onSaveEdit={() => handleSaveEdit(task.id)}
             onDelete={handleDelete}
           />
         ))}

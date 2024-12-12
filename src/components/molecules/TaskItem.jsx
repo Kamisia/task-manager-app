@@ -26,6 +26,7 @@ const TaskItem = ({
       ) : (
         <div className="title">{task.title}</div>
       )}
+
       {editingTaskId === task.id ? (
         <>
           <Button
@@ -45,7 +46,7 @@ const TaskItem = ({
         <>
           <Button
             id="edit"
-            onClick={() => onEdit(task.id)}
+            onClick={() => onEdit(task.id, task.title)}
             icon={CiEdit}
             dataTestId="edit-button"
           />

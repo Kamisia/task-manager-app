@@ -1,31 +1,75 @@
-import { createSlice } from "@reduxjs/toolkit";
-const saveTasksToLocalStorage = (tasks) => {
-  localStorage.setItem("tasks", JSON.stringify(tasks));
-};
-const taskSlice = createSlice({
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import {
+  getTasks,
+  addTask,
+  updateTask,
+  deleteTask,
+} from "../services/taskService";
+
+export const fetchTasks = createAsyncThunk("tasks/fetchTasks", async () => {
+  const response = await getTasks();
+  return response;
+});
+
+export const createTask = createAsyncThunk("tasks/createTask", async (task) => {
+  const response = await addTask(task);
+  return response;
+});
+
+export const removeTask = createAsyncThunk("tasks/removeTask", async (id) => {
+  await deleteTask(id);
+  return id;
+});
+
+export const editTask = createAsyncThunk(
+  "tasks/editTask",
+  async ({ id, updatedTask }) => {
+    const response = await updateTask(id, updatedTask);
+    return response;
+  }
+);
+
+const tasksSlice = createSlice({
   name: "tasks",
   initialState: {
-    tasks: JSON.parse(localStorage.getItem("tasks")) || [],
+    items: [],
+    loading: false,
+    error: null,
   },
-  reducers: {
-    addTask: (state, action) => {
-      state.tasks.push(action.payload);
-      saveTasksToLocalStorage(state.tasks);
-    },
-    deleteTask: (state, action) => {
-      state.tasks = state.tasks.filter((task) => task.id !== action.payload);
-      saveTasksToLocalStorage(state.tasks);
-    },
-    editTask: (state, action) => {
-      const { id, newTitle } = action.payload;
-      const taskToEdit = state.tasks.find((task) => task.id === id);
-      if (taskToEdit) {
-        taskToEdit.title = newTitle;
-        saveTasksToLocalStorage(state.tasks);
-      }
-    },
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+
+      .addCase(fetchTasks.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchTasks.fulfilled, (state, action) => {
+        state.loading = false;
+        state.items = action.payload;
+      })
+      .addCase(fetchTasks.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      })
+
+      .addCase(createTask.fulfilled, (state, action) => {
+        state.items.push(action.payload);
+      })
+
+      .addCase(removeTask.fulfilled, (state, action) => {
+        state.items = state.items.filter((task) => task.id !== action.payload); // Usuń zadanie z listy
+      })
+
+      .addCase(editTask.fulfilled, (state, action) => {
+        const index = state.items.findIndex(
+          (task) => task.id === action.payload.id
+        );
+        if (index !== -1) {
+          state.items[index] = action.payload;
+        }
+      });
   },
 });
 
-export const { addTask, deleteTask, editTask } = taskSlice.actions;
-export default taskSlice.reducer;
+export default tasksSlice.reducer;
