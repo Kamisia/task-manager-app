@@ -43,7 +43,7 @@ To run the full version of the application with a backend and a PostgreSQL datab
 4. Database Configuration
    Create a .env file in the backend directory of the project and fill it out using the template below:
 
-   ```
+   ```env
    DB_NAME=todo_db
    DB_USER=your_user
    DB_PASSWORD=your_password
@@ -93,9 +93,9 @@ yarn start
 
 ## Technologies
 
-- Frontend: React, Redux, Axios
-- Backend: Node.js, Express, Sequelize
-- Database: PostgreSQL
+- **Frontend**: React, Redux, Axios
+- **Backend**: Node.js, Express, Sequelize
+- **Database**: PostgreSQL
 
 ## Notes
 
