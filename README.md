@@ -4,11 +4,17 @@
 
 ## Description
 
-The 'Start Now, Succeed' project is a task management application written in JavaScript using the React.js library. It is a tool that enables users to create, edit, and delete tasks. The application offers an intuitive user interface that allows for easy navigation and quick task operations. Leveraging React.js technology, the project has been organized in a modular manner, facilitating code scalability and maintenance.
+'Start Now, Succeed' is a task management application that supports full CRUD operations (create, read, update, delete) and integrates with a PostgreSQL database. The demo version, available on GitHub Pages, relies on localStorage, enabling quick testing of the interface and basic functionalities without the need for a backend.
 
-## Installation
+## Demo
 
-To run the application locally on your computer, follow these steps:
+The demo version of the application (localStorage):[Start Now, Succeed](https://kamisia.github.io/task-manager-app/)
+
+Note: The demo version uses localStorage, meaning the data is not persistent and does not utilize a backend or the PostgreSQL database.
+
+## How to run a project locally
+
+To run the full version of the application with a backend and a PostgreSQL database, follow the instructions below:
 
 1. Clone the repository to your computer:
 
@@ -34,16 +40,38 @@ To run the application locally on your computer, follow these steps:
    yarn install
    ```
 
-4. Run the application:
+4. Database Configuration
+   Create a .env file in the backend directory of the project and fill it out using the template below:
+
    ```
-   npm run dev
-   ```
-   or
-   ```
-   yarn start
+   DB_NAME=todo_db
+   DB_USER=your_user
+   DB_PASSWORD=your_password
+   DB_HOST=localhost
+   DB_PORT=5432
    ```
 
-The application will be available at http://localhost:5000 in your browser.
+5. Run the application:
+
+Run backend:
+Navigate to backend/src directory
+
+```
+node server.js
+```
+
+Run frontend:
+Navigate to the project directory
+
+```
+npm run dev
+```
+
+or
+
+```
+yarn start
+```
 
 ## Instructions for Use
 
@@ -65,10 +93,16 @@ The application will be available at http://localhost:5000 in your browser.
 
 ## Technologies
 
-- React.js
-- HTML5
-- CSS3
-- JavaScript
+- Frontend: React, Redux, Axios
+- Backend: Node.js, Express, Sequelize
+- Database: PostgreSQL
+
+## Notes
+
+- The demo version does not support the backend and is intended solely for showcasing the user interface.
+- To test the full functionality, you need to run the application locally with a properly configured backend.
+
+If you have any questions or encounter issues, feel free to reach out!
 
 ## Author
 
