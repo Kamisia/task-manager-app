@@ -12,7 +12,7 @@ The demo version of the application (localStorage):[Start Now, Succeed](https://
 
 Note: The demo version uses localStorage, meaning the data is not persistent and does not utilize a backend or the PostgreSQL database.
 
-## How to run a project locally
+## Full Version Setup
 
 To run the full version of the application with a backend and a PostgreSQL database, follow the instructions below:
 
@@ -41,6 +41,7 @@ To run the full version of the application with a backend and a PostgreSQL datab
    ```
 
 4. Database Configuration
+
    Create a .env file in the backend directory of the project and fill it out using the template below:
 
    ```env
@@ -53,14 +54,16 @@ To run the full version of the application with a backend and a PostgreSQL datab
 
 5. Run the application:
 
-Run backend:
+**Run backend:**
+
 Navigate to backend/src directory
 
 ```
 node server.js
 ```
 
-Run frontend:
+**Run frontend:**
+
 Navigate to the project directory
 
 ```
