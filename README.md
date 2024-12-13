@@ -8,7 +8,7 @@
 
 ## Demo
 
-The demo version of the application (localStorage):[Start Now, Succeed](https://kamisia.github.io/task-manager-app/)
+The demo version of the application (localStorage): [Start Now, Succeed](https://kamisia.github.io/task-manager-app/)
 
 Note: The demo version uses localStorage, meaning the data is not persistent and does not utilize a backend or the PostgreSQL database.
 
@@ -42,9 +42,7 @@ To run the full version of the application with a backend and a PostgreSQL datab
 
 4. Database Configuration
 
-   Create a >.env
-   file in the >backend
-   directory of the project and fill it out using the template below:
+   Create a .env file in the backend directory of the project and fill it out using the template below:
 
    ```env
    DB_NAME=todo_db
@@ -58,8 +56,7 @@ To run the full version of the application with a backend and a PostgreSQL datab
 
 **Run backend:**
 
-Navigate to >backend/src
-directory
+Navigate to backend/src directory
 
 ```
 node server.js
